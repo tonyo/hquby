@@ -11,7 +11,28 @@ def eval_q(script_string)
 end
 
 def eval_9
-  # bottles
+  
+  def multibeer(n)
+    n = n.to_i
+    case n
+    when 0 then 'no more bottles'
+    when 1 then '1 bottle'
+    else "#{n} bottles"
+    end
+  end
+
+  99.downto(1) do |i|
+    puts <<-BOTTLES
+#{multibeer(i)} of beer on the wall, #{multibeer(i)} of beer.
+Take one down and pass it around, #{multibeer(i-1)} of beer on the wall.
+
+    BOTTLES
+  end
+
+    puts <<-BOTTLES_ENDING
+No more bottles of beer on the wall, no more bottles of beer.
+Go to the store and buy some more, 99 bottles of beer on the wall.
+    BOTTLES_ENDING
 end
 
 $i = 0
@@ -29,13 +50,15 @@ Usage:
 end
 
 def eval_string(str)
+  str.downcase!
   str.gsub!(/\s+/, '')
   commands = str.split('')
 
   # check commands
   commands.each_index do |c|
     if not ['h', 'q', '9', '+'].include? commands[c]
-      abort "Aborted, unknown symbol: '#{commands[c]}' (:#{c})"
+      $stderr.puts "~ Error! Unknown symbol: '#{commands[c]}' (:#{c})"
+      return
     end
   end
 
@@ -50,19 +73,38 @@ def eval_string(str)
   end
 end
 
+
+########
+# MAIN #
+########
+
 optparse = OptionParser.new do |opts|
 
-  # This displays the help screen, all programs are
-  # assumed to have this option.
   opts.on('-h', '--help', 'Display usage') do
     usage()
-    exit
+    exit 0
   end
 
   opts.on('-e SCRIPT', 'Execute script from command line') do |scr|
     eval_string(scr)
+    exit 0
   end
 end
 optparse.parse!
+
+# Fall to interactive mode
+
+PROMPT = '>> '
+$stdout.sync = true
+loop do
+  print PROMPT
+  new_line = gets
+  if not new_line
+    puts "\n~ Exit"
+    break
+  end
+  new_line.chomp!
+  eval_string(new_line)
+end
 
 
