@@ -11,7 +11,6 @@ def eval_q(script_string)
 end
 
 def eval_9
-  
   def multibeer(n)
     n = n.to_i
     case n
@@ -20,7 +19,6 @@ def eval_9
     else "#{n} bottles"
     end
   end
-
   99.downto(1) do |i|
     puts <<-BOTTLES
 #{multibeer(i)} of beer on the wall, #{multibeer(i)} of beer.
@@ -44,8 +42,10 @@ def usage
   puts <<-USAGE
 Usage:
 
-  -h, --help  - show help
-  -e SCRIPT   - execute script
+  -h, --help    - show help
+  -e SCRIPT     - execute script
+
+  no arguments  - fall back to interactive mode
   USAGE
 end
 
@@ -92,7 +92,7 @@ optparse = OptionParser.new do |opts|
 end
 optparse.parse!
 
-# Fall to interactive mode
+# Fall back to interactive mode
 
 PROMPT = '>> '
 $stdout.sync = true
