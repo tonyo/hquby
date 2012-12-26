@@ -50,6 +50,13 @@ Usage:
   USAGE
 end
 
+def greeting
+  puts <<-GREETING
+--- Welcome to hquby interactive mode!
+--- hquby is an implementation of HQ9+ interpreter.
+  GREETING
+end
+
 def eval_string(str)
   str.downcase!
   str.gsub!(/\s+/, '')
@@ -82,12 +89,12 @@ end
 optparse = OptionParser.new do |opts|
   opts.on('-h', '--help', 'Display usage') do
     usage()
-    exit 0
+    exit(0)
   end
 
   opts.on('-e SCRIPT', 'Execute script from command line') do |scr|
     eval_string(scr)
-    exit 0
+    exit(0)
   end
 end
 optparse.parse!
@@ -104,6 +111,7 @@ trap('INT') do
   print PROMPT
 end
 
+greeting()
 while line = Readline.readline(PROMPT, true)
   eval_string(line.chomp)
 end
