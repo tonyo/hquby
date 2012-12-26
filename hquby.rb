@@ -11,6 +11,7 @@ def eval_q(script_string)
 end
 
 def eval_9
+
   def multibeer(n)
     n = n.to_i
     case n
@@ -79,7 +80,6 @@ end
 ########
 
 optparse = OptionParser.new do |opts|
-
   opts.on('-h', '--help', 'Display usage') do
     usage()
     exit 0
@@ -94,17 +94,18 @@ optparse.parse!
 
 # Fall back to interactive mode
 
+# TODO Check 'Readline' support!
+require 'readline'
 PROMPT = '>> '
 $stdout.sync = true
-loop do
+
+trap('INT') do
+  puts "\n~ Interrupt"
   print PROMPT
-  new_line = gets
-  if not new_line
-    puts "\n~ Exit"
-    break
-  end
-  new_line.chomp!
-  eval_string(new_line)
+end
+
+while line = Readline.readline(PROMPT, true)
+  eval_string(line.chomp)
 end
 
 

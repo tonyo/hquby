@@ -1,15 +1,15 @@
 hquby
 =====
 
-**hquby** is HQ9+ implementation written in Ruby.
+**hquby** is a HQ9+ implementation written in Ruby.
 
 You can:
 
 - jump straight to interactive mode
 
-   `./hquby`
+   `./hquby.rb`
 
 - execute script from the command line
 
-  `./hquby -e 'hqq+'`
+  `./hquby.rb -e 'hqq+'`
 
