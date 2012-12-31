@@ -99,8 +99,17 @@ optparse = OptionParser.new do |opts|
 end
 optparse.parse!
 
-# Fall back to interactive mode
 
+# Read from scripts or STDIN
+if not ARGV.empty? or not $stdin.tty?
+  ARGF.each do |line|
+    eval_string(line.chomp)
+  end
+  exit(0)
+end
+
+
+# Fall back to interactive mode
 # TODO Check 'Readline' support!
 require 'readline'
 PROMPT = '>> '
