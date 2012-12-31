@@ -15,7 +15,7 @@ You can:
 
 - read commands from the standard input
 
-  `$ echo -n 'hq99+' | ./hquby.rb
+  `$ echo -n 'hq99+' | ./hquby.rb`
 
 - read commands from script files
 
