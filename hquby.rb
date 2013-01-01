@@ -39,7 +39,7 @@ def eval_plus
   $i += 1
 end
 
-def usage
+def show_usage
   puts <<-USAGE
 Usage:
 
@@ -50,21 +50,52 @@ Usage:
   USAGE
 end
 
-def greeting
+def show_greeting
   puts <<-GREETING
 --- Welcome to hquby interactive mode!
 --- hquby is an implementation of HQ9+ interpreter.
+--- Type ':help' or '?' for more options.
   GREETING
 end
 
+def show_help
+  puts <<-HELP
+\nAvailable options:
+
+:help, ?          - show this help
+:setprompt PROMPT - set new prompt
+:examine          - print hidden variable value for debug purposes
+:quit             - get me out of here!\n
+  HELP
+end
+
+def eval_config(str)
+  words = str.split(/\s+/)
+  case words[0]
+  when /\?|:help/   then show_help()
+  when ':setprompt' then $prompt = words[1].nil? ? DEFAULT_PROMPT : "#{words[1]} "
+  when ':quit'      then exit(0)
+  when ':examine'   then puts "#{$i}"
+  else puts "~ Error! Unknown statement: '#{words[0]}'"
+  end
+end
+
 def eval_string(str)
+  str.strip!
+
+  # eval config
+  if [':', '?'].include?(str[0])
+    eval_config(str)
+    return
+  end
+
   str.downcase!
   str.gsub!(/\s+/, '')
   commands = str.split('')
 
   # check commands
   commands.each_index do |c|
-    if not ['h', 'q', '9', '+'].include? commands[c]
+    if not ['h', 'q', '9', '+'].include?(commands[c])
       $stderr.puts "~ Error! Unknown symbol: '#{commands[c]}' (:#{c})"
       return
     end
@@ -77,6 +108,7 @@ def eval_string(str)
     when 'q' then eval_q(str)
     when '9' then eval_9
     when '+' then eval_plus
+    else puts "~ Error! This is awkward..."
     end
   end
 end
@@ -88,7 +120,7 @@ end
 
 optparse = OptionParser.new do |opts|
   opts.on('-h', '--help', 'Display usage') do
-    usage()
+    show_usage()
     exit(0)
   end
 
@@ -112,17 +144,29 @@ end
 # Fall back to interactive mode
 # TODO Check 'Readline' support!
 require 'readline'
-PROMPT = '>> '
 $stdout.sync = true
 
+DEFAULT_PROMPT = '>> '
+$prompt = DEFAULT_PROMPT
+
+# Catch Ctrl-C
 trap('INT') do
   puts "\n~ Interrupt"
-  print PROMPT
+  print $prompt
 end
 
-greeting()
-while line = Readline.readline(PROMPT, true)
+LIST = [
+  ':help', ':setprompt',
+  ':quit', ':examine',
+].sort
+
+comp = proc { |s| LIST.grep( /^#{Regexp.escape(s)}/ ) }
+
+Readline.completion_append_character = " "
+Readline.completion_proc = comp
+
+show_greeting()
+while line = Readline.readline($prompt, true)
   eval_string(line.chomp)
 end
-
 

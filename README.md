@@ -21,3 +21,11 @@ You can:
 
   `$ ./hquby.rb script1.hq script2.hq`
 
+**hquby** supports Readline library.
+
+You can also use the following service commands while in interactive mode:
+
+:help               - show options summary
+:setprompt PROMPT   - set new prompt
+:examine            - print hidden variable value (for debug purposes!)
+:quit               - terminate the shell
