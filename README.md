@@ -25,7 +25,10 @@ You can:
 
 You can also use the following service commands while in interactive mode:
 
-:help               - show options summary
-:setprompt PROMPT   - set new prompt
-:examine            - print hidden variable value (for debug purposes!)
-:quit               - terminate the shell
+  `:help`               - show options summary
+
+  `:setprompt PROMPT`   - set new prompt
+
+  `:examine`            - print hidden variable value (for debug purposes!)
+
+  `:quit`               - terminate the shell
