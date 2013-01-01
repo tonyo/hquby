@@ -84,7 +84,7 @@ def eval_string(str)
   str.strip!
 
   # eval config
-  if [':', '?'].include?(str[0])
+  if $is_interactive and [':', '?'].include?(str[0])
     eval_config(str)
     return
   end
@@ -132,6 +132,7 @@ end
 optparse.parse!
 
 
+$is_interactive = false
 # Read from scripts or STDIN
 if not ARGV.empty? or not $stdin.tty?
   ARGF.each do |line|
@@ -148,6 +149,7 @@ $stdout.sync = true
 
 DEFAULT_PROMPT = '>> '
 $prompt = DEFAULT_PROMPT
+$is_interactive = true
 
 # Catch Ctrl-C
 trap('INT') do
