@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["revolver112@gmail.com"]
   gem.description   = %q{HQ9+ interpreter}
   gem.summary       = %q{Simple HQ9+ implementation}
-  gem.homepage      = "git://github.com/rev112/hquby"
+  gem.homepage      = "https://github.com/rev112/hquby"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
