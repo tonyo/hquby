@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Hquby::VERSION
   gem.authors       = ["Anton Ovchinnikov"]
   gem.email         = ["revolver112@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{HQ9+ interpreter}
+  gem.summary       = %q{Simple HQ9+ implementation}
   gem.homepage      = "git://github.com/rev112/hquby"
 
   gem.files         = `git ls-files`.split($/)
