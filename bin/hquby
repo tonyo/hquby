@@ -141,7 +141,6 @@ if not ARGV.empty? or not $stdin.tty?
   exit(0)
 end
 
-
 # Fall back to interactive mode
 # TODO Check 'Readline' support!
 require 'readline'
