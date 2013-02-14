@@ -1,29 +1,38 @@
-# Hquby
+# hquby
 
-TODO: Write a gem description
+
+**hquby** is a HQ9+ implementation written in Ruby.
+
+You can:
+
+- jump straight to interactive mode
+
+  `$ ./hquby.rb`
+
+- execute script from the command line
+
+  `$ ./hquby.rb -e 'hqq+'`
+
+- read commands from the standard input
+
+  `$ echo -n 'hq99+' | ./hquby.rb`
+
+- read commands from script files
+
+  `$ ./hquby.rb script1.hq script2.hq`
+
+**hquby** supports Readline library.
+
+You can also use the following service commands while in interactive mode:
+
+  `:help`               - show options summary
+
+  `:setprompt PROMPT`   - set new prompt
+
+  `:examine`            - print hidden variable value (for debug purposes!)
+
+  `:quit`               - terminate the shell
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'hquby'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install hquby
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+    $ gem install hquby 
