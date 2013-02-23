@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'hquby'
 
 def eval_h
   puts "Hello, world!"
@@ -52,6 +53,7 @@ end
 
 def show_greeting
   puts <<-GREETING
+--- HQUBY v#{Hquby::VERSION}
 --- Welcome to hquby interactive mode!
 --- hquby is an implementation of HQ9+ interpreter.
 --- Type ':help' or '?' for more options.
