@@ -36,3 +36,7 @@ You can also use the following service commands while in interactive mode:
 ## Installation
 
     $ gem install hquby 
+
+## TODO
+
+    Add tests

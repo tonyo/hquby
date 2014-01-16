@@ -126,7 +126,7 @@ optparse = OptionParser.new do |opts|
     exit(0)
   end
 
-  opts.on('-e SCRIPT', 'Execute script from command line') do |scr|
+  opts.on('-e SCRIPT', 'Execute script from the command line') do |scr|
     eval_string(scr)
     exit(0)
   end
@@ -144,11 +144,10 @@ if not ARGV.empty? or not $stdin.tty?
 end
 
 # Fall back to interactive mode
-# TODO Check 'Readline' support!
-require 'readline'
-$stdout.sync = true
 
 DEFAULT_PROMPT = '>> '
+$stdout.sync = true
+
 $prompt = DEFAULT_PROMPT
 $is_interactive = true
 
@@ -163,13 +162,26 @@ LIST = [
   ':quit', ':examine',
 ].sort
 
-comp = proc { |s| LIST.grep( /^#{Regexp.escape(s)}/ ) }
-
-Readline.completion_append_character = " "
-Readline.completion_proc = comp
-
 show_greeting()
-while line = Readline.readline($prompt, true)
-  eval_string(line.chomp)
-end
+HAS_READLINE = begin
+                 require 'readline'
+               rescue LoadError
+                 puts "(Install 'readline' gem for better experience)"
+                 false
+               end
+if HAS_READLINE
+  # Readline gem is present
+  comp = proc { |s| LIST.grep( /^#{Regexp.escape(s)}/ ) }
 
+  Readline.completion_append_character = " "
+  Readline.completion_proc = comp
+
+  while line = Readline.readline($prompt, true)
+    eval_string(line.chomp)
+  end
+else
+  loop do
+    print $prompt
+    eval_string(gets.chomp)
+  end
+end
